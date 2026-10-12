@@ -1,0 +1,2382 @@
+<!DOCTYPE html>  <html lang="fa" dir="rtl">    <head>    
+<meta charset="UTF-8">    
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">    
+<title>کافی‌نت من</title>  <style>    
+*{box-sizing:border-box}    :root{
+--bg:#07111f;
+--bg2:#10264d;
+--card:rgba(255,255,255,.09);
+--text:#fff;
+--muted:#aebbd0;
+--blue:#00c6ff;
+--blue2:#0072ff;
+--green:#00c896;
+--danger:#ff5577;
+}
+
+body{
+margin:0;
+min-height:100vh;
+font-family:Tahoma,Arial,sans-serif;
+background:
+radial-gradient(circle at top right,#123c72 0,#07111f 45%,#050b15 100%);
+color:var(--text);
+}
+
+button,input,textarea,select{
+font-family:inherit;
+}
+
+.app{
+width:100%;
+max-width:520px;
+min-height:100vh;
+margin:auto;
+padding:18px;
+}
+
+.screen{
+display:none;
+animation:fade .25s ease;
+}
+
+.screen.active{
+display:block;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(8px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+.logo{
+width:82px;
+height:82px;
+margin:35px auto 18px;
+border-radius:25px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:42px;
+background:linear-gradient(135deg,var(--blue),var(--blue2));
+box-shadow:0 15px 45px rgba(0,114,255,.3);
+}
+
+h1{
+text-align:center;
+margin:8px 0;
+font-size:27px;
+}
+
+h2{
+margin:8px 0 18px;
+}
+
+p{
+line-height:1.9;
+}
+
+.muted{
+color:var(--muted);
+}
+
+.center{
+text-align:center;
+}
+
+.card{
+background:var(--card);
+border:1px solid rgba(255,255,255,.1);
+border-radius:22px;
+padding:18px;
+margin-bottom:14px;
+box-shadow:0 12px 35px rgba(0,0,0,.2);
+backdrop-filter:blur(12px);
+}
+
+.btn{
+width:100%;
+border:0;
+border-radius:16px;
+padding:16px;
+margin-top:12px;
+color:#fff;
+font-size:16px;
+font-weight:bold;
+background:linear-gradient(135deg,var(--blue),var(--blue2));
+cursor:pointer;
+}
+
+.btn.secondary{
+background:rgba(255,255,255,.09);
+}
+
+.btn.green{
+background:linear-gradient(135deg,#00b09b,#00c896);
+}
+
+input,textarea,select{
+width:100%;
+padding:15px;
+border-radius:15px;
+border:1px solid rgba(255,255,255,.13);
+outline:none;
+background:rgba(0,0,0,.25);
+color:#fff;
+font-size:15px;
+}
+
+textarea{
+min-height:130px;
+resize:none;
+}
+
+select option{
+color:#000;
+}
+
+.device{
+direction:ltr;
+text-align:center;
+font-weight:bold;
+letter-spacing:1px;
+font-size:18px;
+}
+
+.status{
+padding:14px;
+border-radius:16px;
+background:rgba(0,0,0,.22);
+text-align:center;
+line-height:2;
+margin-top:14px;
+}
+
+.home-head{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+margin:5px 0 15px;
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.brand-logo{
+width:50px;
+height:50px;
+border-radius:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,var(--blue),var(--blue2));
+font-size:25px;
+}
+
+.clock{
+text-align:left;
+color:var(--muted);
+font-size:11px;
+line-height:1.8;
+}
+
+.subscription{
+background:linear-gradient(
+135deg,
+rgba(0,198,255,.18),
+rgba(0,114,255,.18)
+);
+border:1px solid rgba(0,198,255,.25);
+}
+
+.days{
+font-size:28px;
+font-weight:bold;
+color:#6ee7ff;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.service{
+border:1px solid rgba(255,255,255,.09);
+border-radius:20px;
+padding:17px 12px;
+min-height:125px;
+color:white;
+background:var(--card);
+text-align:right;
+cursor:pointer;
+transition:.18s;
+}
+
+.service:active{
+transform:scale(.97);
+}
+
+.service .icon{
+font-size:31px;
+margin-bottom:10px;
+}
+
+.service b{
+display:block;
+font-size:14px;
+}
+
+.service span{
+display:block;
+margin-top:7px;
+color:var(--muted);
+font-size:11px;
+line-height:1.6;
+}
+
+.topbar{
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:15px;
+}
+
+.back{
+width:44px;
+height:44px;
+border:0;
+border-radius:14px;
+background:rgba(255,255,255,.09);
+color:#fff;
+font-size:20px;
+}
+
+.sheet-bg{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.65);
+display:none;
+align-items:flex-end;
+z-index:50;
+}
+
+.sheet-bg.show{
+display:flex;
+}
+
+.sheet{
+width:100%;
+max-width:520px;
+margin:auto;
+background:#0b1930;
+border-radius:25px 25px 0 0;
+padding:20px;
+max-height:85vh;
+overflow:auto;
+}
+
+.link-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-top:10px;
+border:0;
+border-radius:15px;
+background:rgba(255,255,255,.08);
+color:#fff;
+text-decoration:none;
+text-align:center;
+cursor:pointer;
+font-size:15px;
+}
+
+.preview-list{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:15px;
+}
+
+.preview{
+background:rgba(255,255,255,.06);
+padding:8px;
+border-radius:15px;
+}
+
+.preview img{
+width:100%;
+height:130px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.preview button{
+width:100%;
+margin-top:6px;
+padding:8px;
+border:0;
+border-radius:10px;
+background:rgba(255,255,255,.1);
+color:white;
+}
+
+.toast{
+position:fixed;
+left:50%;
+bottom:25px;
+transform:translateX(-50%);
+background:#101d32;
+border:1px solid rgba(255,255,255,.12);
+padding:13px 18px;
+border-radius:15px;
+display:none;
+z-index:100;
+white-space:nowrap;
+}
+
+.toast.show{
+display:block;
+}
+
+.faq{
+padding:13px 0;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.small{
+font-size:12px;
+color:var(--muted);
+}
+
+.footer{
+text-align:center;
+color:#70809a;
+font-size:11px;
+margin:25px 0 10px;
+}
+
+@media(max-width:380px){
+.grid{
+grid-template-columns:1fr;
+}
+}
+</style>  </head>  <body>  <div class="app">  <!-- WELCOME -->  <section id="welcome" class="screen">   <div class="logo">☕</div>   <h1>کافی‌نت من</h1>   <div class="card center">
+
+  <p>    
+   بسیاری از خدمات کافی‌نت را از داخل گوشی انجام بده.    
+  </p>    <p class="muted">    
+   سریع، ساده و همیشه در دسترس    
+  </p>    
+ </div>   <button class="btn" onclick="openActivation()">    
+  🚀 ورود به برنامه    
+ </button>   <button class="btn secondary" onclick="show('device')">    
+  📱 مشاهده کد دستگاه    
+ </button>  </section>  <!-- DEVICE -->  <section id="device" class="screen">   <div class="logo">📱</div>   <h1>کد دستگاه شما</h1>   <div class="card">    <p class="center muted">    
+   این کد مخصوص این دستگاه است.    
+   آن را برای مدیر برنامه ارسال کنید.    
+  </p>  <input  
+id="deviceCode"  
+class="device"  
+readonly  > 
+
+  <button class="btn green" onclick="copyDevice()">    
+   📋 کپی کد دستگاه    
+  </button>    <button class="btn secondary" onclick="shareDevice()">    
+   📤 ارسال کد    
+  </button>    <button class="btn secondary" onclick="show('welcome')">    
+   برگشت    
+  </button>   </div>  </section>  <!-- ACTIVATION -->  <section id="activation" class="screen">   <div class="logo">🔐</div>   <h1>فعال‌سازی اشتراک</h1>   <div class="card">    <p class="muted center">    
+   کد فعال‌سازی دریافتی از مدیر را وارد کنید.    
+  </p>  <input  
+id="activationCode"  
+placeholder="کد فعال‌سازی را وارد کنید"  
+dir="ltr"  
+autocomplete="off"  > 
+
+  <button class="btn" onclick="activate()">    
+   🔓 فعال‌سازی اشتراک    
+  </button>    <button class="btn secondary" onclick="show('device')">    
+   📱 کد دستگاه من    
+  </button>    <div id="activationStatus" class="status">    
+   آماده فعال‌سازی    
+  </div>   </div>  </section>  <!-- HOME -->  <section id="home" class="screen">   <div class="home-head">    <div class="brand">     <div class="brand-logo">☕</div>     <div>    
+    <b>کافی‌نت من</b>    
+    <div class="small">    
+     سلام 👋 خوش آمدید    
+    </div>    
+   </div>    </div>    <div class="clock">    
+   <div id="persianDate">---</div>    
+   <div id="clock">--:--:--</div>    
+  </div>   </div>   <div class="card subscription">    <div class="small">    
+   وضعیت اشتراک    
+  </div>    <div id="subscriptionText">    
+   در حال بررسی...    
+  </div>    <div class="days">    
+   <span id="daysRemaining">0</span>    
+   روز    
+  </div>    <div id="subscriptionDetails" class="small">    
+   ---    
+  </div>   </div>   <h2>خدمات کافی‌نت</h2>   <div id="services" class="grid"></div>   <button class="btn secondary" onclick="openActivation()">    
+  🎟️ مدیریت اشتراک    
+ </button>   <div class="footer">    
+  کافی‌نت من • نسخه موبایل    
+ </div>  </section>  <!-- PDF -->  <section id="pdf" class="screen">   <div class="topbar">    
+  <button class="back" onclick="goHome()">‹</button>    
+  <h2>🖼️ تبدیل عکس به PDF</h2>    
+ </div>   <div class="card">    <p class="muted">    
+   چند تصویر انتخاب کن و آنها را به یک فایل PDF تبدیل کن.    
+  </p>  <input  
+id="imageFiles"  
+type="file"  
+accept="image/*"  
+multiple  
+onchange="loadImages(event)"  > 
+
+  <div id="imagePreview" class="preview-list"></div>    <button class="btn" onclick="makePDF()">    
+   📄 ساخت PDF    
+  </button>   </div>  </section>  <!-- REQUEST -->  <section id="request" class="screen">   <div class="topbar">    
+  <button class="back" onclick="goHome()">‹</button>    
+  <h2>📄 فرم و درخواست</h2>    
+ </div>   <div class="card">  <label>عنوان درخواست</label>  <input
+id="requestTitle"
+placeholder="مثلاً درخواست پیگیری"
+
+> 
+
+<label>متن درخواست</label>
+
+  <textarea    
+   id="requestText"    
+   placeholder="متن درخواست خود را بنویسید..."    
+  ></textarea>    <button class="btn" onclick="makeRequestPDF()">    📄 ساخت PDF درخواست
+</button>   </div>  </section>  <!-- SUPPORT -->  <section id="support" class="screen">   <div class="topbar">
+<button class="back" onclick="goHome()">‹</button>
+
+  <h2>🎧 پشتیبانی</h2>    
+ </div>   <div class="card">    <h3>پشتیبانی کافی‌نت من</h3>    <p class="muted">    
+   اگر در استفاده از برنامه مشکلی داشتی،    
+   از راه‌های ارتباطی زیر استفاده کن.    
+  </p>  <button  
+class="link-btn"  
+type="button"  
+onclick="openExternal('https://t.me/')"  > 
+
+💬 تلگرام
+</button>
+
+<button
+class="link-btn"
+type="button"
+onclick="openExternal('https://wa.me/')"
+
+> 
+
+🟢 واتساپ
+</button>
+
+ </div>   <div class="card">    <h3>❓ سوالات متداول</h3>    <div class="faq">    
+   <b>چرا اشتراکم فعال نمی‌شود؟</b>     <p class="small">    
+    کد فعال‌سازی باید مخصوص همین کد دستگاه ساخته شده باشد.    
+   </p>    
+  </div>    <div class="faq">    
+   <b>کد دستگاه چیست؟</b>     <p class="small">    
+    یک شناسه مخصوص دستگاه شماست که برای ساخت اشتراک استفاده می‌شود.    
+   </p>    
+  </div>    <div class="faq">    
+   <b>بعد از پایان اشتراک چه اتفاقی می‌افتد؟</b>     <p class="small">    
+    دسترسی به خدمات برنامه متوقف می‌شود تا اشتراک جدید فعال شود.    
+   </p>    
+  </div>   </div>  </section>  <!-- SEARCH -->  <section id="search" class="screen">   <div class="topbar">    
+  <button class="back" onclick="goHome()">‹</button>    
+  <h2>🌐 جستجوی اینترنتی</h2>    
+ </div>   <div class="card">  <input  
+id="searchText"  
+placeholder="عبارت مورد نظر..."  
+autocomplete="off"  > 
+
+  <button class="btn" onclick="internetSearch()">    
+   🔎 جستجو    
+  </button>   </div>   <div class="card">  <button  
+class="link-btn"  
+type="button"  
+onclick="openExternal('https://www.google.com')"  > 
+
+🔵 Google
+</button>
+
+<button
+class="link-btn"
+type="button"
+onclick="openExternal('https://fa.wikipedia.org')"
+
+> 
+
+📚 ویکی‌پدیای فارسی
+</button>
+
+ </div>  </section>  </div>  <!-- SHEET -->  <div    
+ id="sheetBg"    
+ class="sheet-bg"    
+ onclick="closeSheet(event)"    
+>   <div    
+  class="sheet"    
+  onclick="event.stopPropagation()"    
+ >    <h2 id="sheetTitle">    
+   خدمت    
+  </h2>    <div id="sheetContent"></div>  <button  
+class="btn secondary"  
+onclick="closeSheet()"  > 
+
+بستن
+</button>
+
+ </div>  </div>  <div id="toast" class="toast"></div>  <script>    /* =========================================================
+زیرساخت اشتراک
+========================================================= */
+
+const SECRET =
+"KAFENET_MAN_2026_SECRET_928374";
+
+/* =========================================================
+DEVICE
+========================================================= */
+
+function createDevice(){
+
+const chars =
+"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+function part(){
+
+let s="";
+
+for(let i=0;i<6;i++){
+
+s += chars[
+Math.floor(
+Math.random()*chars.length
+)
+];
+
+}
+
+return s;
+
+}
+
+return "CN-"+part()+"-"+part();
+
+}
+
+let DEVICE =
+localStorage.getItem(
+"kafenet_device"
+);
+
+if(!DEVICE){
+
+DEVICE=createDevice();
+
+localStorage.setItem(
+"kafenet_device",
+DEVICE
+);
+
+}
+
+document.getElementById(
+"deviceCode"
+).value=DEVICE;
+
+/* =========================================================
+BASE64
+========================================================= */
+
+function decodeBase64(text){
+
+try{
+
+text=text
+.replace(/-/g,"+")
+.replace(/_/g,"/");
+
+while(text.length%4)
+text+="=";
+
+return decodeURIComponent(
+escape(atob(text))
+);
+
+}catch(e){
+
+throw new Error(
+"کد فعال‌سازی خراب است."
+);
+
+}
+
+}
+
+/* =========================================================
+HASH
+========================================================= */
+
+async function hash(text){
+
+const data =
+new TextEncoder().encode(text);
+
+const buffer =
+await crypto.subtle.digest(
+"SHA-256",
+data
+);
+
+return Array.from(
+new Uint8Array(buffer)
+)
+.map(x =>
+x.toString(16).padStart(2,"0")
+)
+.join("");
+
+}
+
+/* =========================================================
+SCREEN
+========================================================= */
+
+function show(id){
+
+document
+.querySelectorAll(".screen")
+.forEach(
+x=>x.classList.remove("active")
+);
+
+const el=
+document.getElementById(id);
+
+if(el)
+el.classList.add("active");
+
+window.scrollTo(0,0);
+
+}
+
+/* =========================================================
+اشتراک
+========================================================= */
+
+async function checkSubscription(){
+
+const raw =
+localStorage.getItem(
+"kafenet_subscription"
+);
+
+if(!raw){
+
+document.getElementById(
+"subscriptionText"
+).textContent=
+"اشتراک فعال نیست";
+
+document.getElementById(
+"daysRemaining"
+).textContent="0";
+
+return false;
+
+}
+
+try{
+
+const saved =
+JSON.parse(raw);
+
+if(saved.device !== DEVICE){
+
+localStorage.removeItem(
+"kafenet_subscription"
+);
+
+return false;
+
+}
+
+const expected =
+await hash(
+SECRET+"|"+saved.payloadText
+);
+
+if(
+expected.toLowerCase() !==
+String(saved.signature)
+.toLowerCase()
+){
+
+localStorage.removeItem(
+"kafenet_subscription"
+);
+
+return false;
+
+}
+
+const payload =
+JSON.parse(
+saved.payloadText
+);
+
+if(
+payload.device !== DEVICE
+){
+
+localStorage.removeItem(
+"kafenet_subscription"
+);
+
+return false;
+
+}
+
+const expires =
+Number(payload.expiresAt);
+
+const now=
+Date.now();
+
+if(
+!Number.isFinite(expires) ||
+expires<=now
+){
+
+document.getElementById(
+"subscriptionText"
+).textContent=
+"اشتراک منقضی شده";
+
+document.getElementById(
+"daysRemaining"
+).textContent="0";
+
+return false;
+
+}
+
+const days=
+Math.ceil(
+(expires-now) /
+86400000
+);
+
+document.getElementById(
+"subscriptionText"
+).textContent=
+"اشتراک شما فعال است ✅";
+
+document.getElementById(
+"daysRemaining"
+).textContent=
+days;
+
+document.getElementById(
+"subscriptionDetails"
+).textContent=
+"تا "+
+new Date(expires)
+.toLocaleDateString("fa-IR")+
+" اعتبار دارد";
+
+return true;
+
+}catch(e){
+
+console.error(e);
+
+return false;
+
+}
+
+}
+
+/* =========================================================
+فعال‌سازی
+========================================================= */
+
+async function activate(){
+
+const input =
+document.getElementById(
+"activationCode"
+);
+
+const status =
+document.getElementById(
+"activationStatus"
+);
+
+const code =
+input.value.trim();
+
+if(!code){
+
+status.textContent=
+"❌ کد فعال‌سازی را وارد کنید.";
+
+return;
+
+}
+
+status.textContent=
+"⏳ در حال بررسی کد...";
+
+try{
+
+const parts=
+code.split(".");
+
+if(parts.length!==2){
+
+throw new Error(
+"فرمت کد صحیح نیست."
+);
+
+}
+
+const payloadText=
+decodeBase64(parts[0]);
+
+const signature=
+parts[1].trim();
+
+const expected=
+await hash(
+SECRET+"|"+payloadText
+);
+
+if(
+expected.toLowerCase() !==
+signature.toLowerCase()
+){
+
+throw new Error(
+"کد فعال‌سازی معتبر نیست."
+);
+
+}
+
+const payload=
+JSON.parse(payloadText);
+
+if(
+!payload ||
+payload.device!==DEVICE
+){
+
+throw new Error(
+"این کد برای این دستگاه ساخته نشده است."
+);
+
+}
+
+if(
+Number(payload.expiresAt)<=
+Date.now()
+){
+
+throw new Error(
+"این اشتراک منقضی شده است."
+);
+
+}
+
+localStorage.setItem(
+"kafenet_subscription",
+JSON.stringify({
+device:DEVICE,
+payloadText:payloadText,
+signature:signature
+})
+);
+
+status.textContent=
+"✅ اشتراک با موفقیت فعال شد.";
+
+await checkSubscription();
+
+setTimeout(
+()=>{
+show("home");
+renderServices();
+},
+700
+);
+
+}catch(e){
+
+status.textContent=
+"❌ "+e.message;
+
+}
+
+}
+
+/* =========================================================
+NAVIGATION
+========================================================= */
+
+async function goHome(){
+
+const ok=
+await checkSubscription();
+
+if(ok){
+
+show("home");
+renderServices();
+
+}else{
+
+show("activation");
+
+}
+
+}
+
+async function openActivation(){
+
+const ok=
+await checkSubscription();
+
+if(ok){
+
+show("home");
+renderServices();
+
+}else{
+
+show("activation");
+
+}
+
+}
+
+/* =========================================================
+DEVICE
+========================================================= */
+
+async function copyDevice(){
+
+try{
+
+await navigator.clipboard.writeText(
+DEVICE
+);
+
+toast(
+"✅ کد دستگاه کپی شد"
+);
+
+}catch{
+
+const input=
+document.getElementById(
+"deviceCode"
+);
+
+input.select();
+
+document.execCommand("copy");
+
+toast("✅ کپی شد");
+
+}
+
+}
+
+async function shareDevice(){
+
+const text=
+"کد دستگاه من در کافی‌نت من:\n"+
+DEVICE;
+
+if(navigator.share){
+
+try{
+
+await navigator.share({
+title:"کد دستگاه کافی‌نت من",
+text:text
+});
+
+}catch{}
+
+}else{
+
+await copyDevice();
+
+}
+
+}
+
+/* =========================================================
+باز کردن لینک خارجی
+اصلاح اصلی لینک‌ها اینجاست
+========================================================= */
+
+function openExternal(url){
+
+if(!url){
+toast("❌ لینک نامعتبر است");
+return;
+}
+
+try{
+
+/*
+به جای window.open و target=_blank
+مستقیماً آدرس را باز می‌کنیم.
+این روش برای WebView و اجرای HTML
+روی گوشی سازگارتر است.
+*/
+
+window.location.assign(url);
+
+}catch(e){
+
+window.location.href=url;
+
+}
+
+}
+
+/* =========================================================
+SERVICES
+========================================================= */
+
+const services=[
+
+{
+id:"internet",
+icon:"🌐",
+title:"خدمات اینترنتی",
+desc:"جستجو و دسترسی سریع",
+type:"local"
+},
+
+{
+id:"eblagh",
+icon:"📩",
+title:"ابلاغیه‌ها",
+desc:"خدمات ابلاغ الکترونیکی",
+type:"links",
+links:[
+[
+"سامانه ابلاغ",
+"https://eblagh.adliran.ir"
+],
+[
+"سامانه ثنا",
+"https://sana.adliran.ir"
+]
+]
+},
+
+{
+id:"judicial",
+icon:"⚖️",
+title:"خدمات قضایی",
+desc:"سامانه‌های خدمات قضایی",
+type:"links",
+links:[
+[
+"خدمات قضایی",
+"https://my.adliran.ir"
+],
+[
+"عدل ایران",
+"https://adliran.ir"
+],
+[
+"ثنا",
+"https://sana.adliran.ir"
+]
+]
+},
+
+{
+id:"government",
+icon:"🏛️",
+title:"خدمات دولتی",
+desc:"پنجره ملی خدمات دولت",
+type:"links",
+links:[
+[
+"پنجره ملی خدمات دولت",
+"https://my.gov.ir"
+]
+]
+},
+
+{
+id:"identity",
+icon:"🪪",
+title:"خدمات هویتی",
+desc:"خدمات سازمان ثبت احوال",
+type:"links",
+links:[
+[
+"ثبت احوال",
+"https://sabteahval.ir"
+],
+[
+"خدمات هویتی",
+"https://ncr.ir"
+],
+[
+"سامانه سهیم",
+"https://sahim.sabteahval.ir"
+]
+]
+},
+
+{
+id:"appointment",
+icon:"📅",
+title:"گرفتن نوبت",
+desc:"دسترسی به سامانه‌های نوبت",
+type:"links",
+links:[
+[
+"پنجره ملی خدمات دولت",
+"https://my.gov.ir"
+]
+]
+},
+
+{
+id:"property",
+icon:"🏠",
+title:"خدمات املاک",
+desc:"سامانه خدمات املاک",
+type:"links",
+links:[
+[
+"سامانه املاک و اسکان",
+"https://amlak.mrud.ir"
+]
+]
+},
+
+{
+id:"forms",
+icon:"📄",
+title:"فرم‌ها و مدارک",
+desc:"ساخت درخواست و فرم",
+type:"local"
+},
+
+{
+id:"pdf",
+icon:"📑",
+title:"تبدیل عکس به PDF",
+desc:"ساخت PDF از تصاویر",
+type:"local"
+},
+
+{
+id:"bills",
+icon:"🧾",
+title:"پرداخت قبوض",
+desc:"دسترسی به خدمات قبوض",
+type:"links",
+links:[
+[
+"پنجره خدمات دولت",
+"https://my.gov.ir"
+]
+]
+},
+
+{
+id:"support",
+icon:"🎧",
+title:"پشتیبانی",
+desc:"راهنما و ارتباط",
+type:"local"
+}
+
+];
+
+function renderServices(){
+
+const box=
+document.getElementById(
+"services"
+);
+
+box.innerHTML="";
+
+services.forEach(
+service=>{
+
+const el=
+document.createElement("button");
+
+el.className="service";
+
+el.innerHTML=
+'<div class="icon">'+
+service.icon+
+'</div>'+
+'<b>'+
+service.title+
+'</b>'+
+'<span>'+
+service.desc+
+'</span>';
+
+el.onclick=
+()=>openService(service);
+
+box.appendChild(el);
+
+}
+);
+
+}
+
+function openService(service){
+
+if(service.id==="internet"){
+
+show("search");
+return;
+
+}
+
+if(service.id==="pdf"){
+
+show("pdf");
+return;
+
+}
+
+if(service.id==="forms"){
+
+show("request");
+return;
+
+}
+
+if(service.id==="support"){
+
+show("support");
+return;
+
+}
+
+if(service.type==="links"){
+
+openSheet(
+service.title,
+service.links
+);
+
+}
+
+}
+
+/* =========================================================
+SERVICE SHEET
+این قسمت قبلاً با <a target="_blank> بود.
+الان دکمه واقعی + openExternal است.
+========================================================= */
+
+function openSheet(title,links){
+
+const bg=
+document.getElementById(
+"sheetBg"
+);
+
+const titleEl=
+document.getElementById(
+"sheetTitle"
+);
+
+const content=
+document.getElementById(
+"sheetContent"
+);
+
+titleEl.textContent=title;
+
+content.innerHTML="";
+
+links.forEach(
+item=>{
+
+const button=
+document.createElement("button");
+
+button.type="button";
+
+button.className="link-btn";
+
+button.textContent=
+"🔗 "+item[0];
+
+button.onclick=
+function(){
+
+openExternal(item[1]);    
+
+};
+
+content.appendChild(button);
+
+}
+);
+
+bg.classList.add("show");
+
+}
+
+function closeSheet(){
+
+document
+.getElementById("sheetBg")
+.classList.remove("show");
+
+}
+
+/* =========================================================
+INTERNET SEARCH
+========================================================= */
+
+function internetSearch(){
+
+const q=
+document.getElementById(
+"searchText"
+).value.trim();
+
+if(!q){
+
+toast(
+"⚠️ عبارت جستجو را وارد کن"
+);
+
+return;
+
+}
+
+const url=
+"https://www.google.com/search?q="+
+encodeURIComponent(q);
+
+openExternal(url);
+
+}
+
+/* =========================================================
+IMAGE TO PDF
+========================================================= */
+
+let selectedImages=[];
+
+function loadImages(event){
+
+selectedImages=
+Array.from(
+event.target.files
+);
+
+renderImages();
+
+}
+
+function renderImages(){
+
+const box=
+document.getElementById(
+"imagePreview"
+);
+
+box.innerHTML="";
+
+selectedImages.forEach(
+(file,index)=>{
+
+const reader=
+new FileReader();
+
+reader.onload=
+function(e){
+
+const div=    
+  document.createElement("div");    
+
+ div.className="preview";    
+
+
+ div.innerHTML=    
+  '<img src="'+    
+  e.target.result+    
+  '">' +    
+
+  '<button onclick="moveImage('+    
+  index+',-1)">⬆️ بالا</button>' +    
+
+  '<button onclick="moveImage('+    
+  index+',1)">⬇️ پایین</button>' +    
+
+  '<button onclick="removeImage('+    
+  index+')">🗑 حذف</button>';    
+
+
+ box.appendChild(div);    
+
+};
+
+reader.readAsDataURL(file);
+
+}
+);
+
+}
+
+function moveImage(index,direction){
+
+const newIndex=
+index+direction;
+
+if(
+newIndex<0 ||
+newIndex>=selectedImages.length
+)
+return;
+
+[
+selectedImages[index],
+selectedImages[newIndex]
+]=
+[
+selectedImages[newIndex],
+selectedImages[index]
+];
+
+renderImages();
+
+}
+
+function removeImage(index){
+
+selectedImages.splice(
+index,
+1
+);
+
+renderImages();
+
+}
+
+/* =========================================================
+IMAGE SIZE
+========================================================= */
+
+function getImageSize(file){
+
+return new Promise(
+(resolve,reject)=>{
+
+const r=
+new FileReader();
+
+r.onload=
+()=>{
+
+const img=    
+  new Image();    
+
+
+ img.onload=    
+  ()=>{    
+
+   resolve({    
+    width:img.width,    
+    height:img.height    
+   });    
+
+  };    
+
+
+ img.onerror=reject;    
+
+ img.src=r.result;    
+
+};
+
+r.onerror=reject;
+
+r.readAsDataURL(file);
+
+}
+);
+
+}
+
+/* =========================================================
+IMAGE JPEG
+========================================================= */
+
+function imageToJpeg(file){
+
+return new Promise(
+(resolve,reject)=>{
+
+const reader=
+new FileReader();
+
+reader.onload=
+function(){
+
+const img=    
+  new Image();    
+
+
+ img.onload=    
+  function(){    
+
+   const max=1200;    
+
+   let w=img.width;    
+   let h=img.height;    
+
+
+   if(w>max){    
+
+    h=    
+     Math.round(    
+      h*max/w    
+     );    
+
+    w=max;    
+
+   }    
+
+
+   const canvas=    
+    document.createElement(    
+     "canvas"    
+    );    
+
+
+   canvas.width=w;    
+   canvas.height=h;    
+
+
+   const ctx=    
+    canvas.getContext("2d");    
+
+
+   ctx.fillStyle="#fff";    
+
+
+   ctx.fillRect(    
+    0,0,w,h    
+   );    
+
+
+   ctx.drawImage(    
+    img,    
+    0,    
+    0,    
+    w,    
+    h    
+   );    
+
+
+   canvas.toBlob(    
+    blob=>{    
+
+     if(blob)    
+      resolve(blob);    
+     else    
+      reject(    
+       new Error("خطا")    
+      );    
+
+    },    
+    "image/jpeg",    
+    .82    
+   );    
+
+  };    
+
+
+ img.onerror=reject;    
+
+ img.src=reader.result;    
+
+};
+
+reader.onerror=reject;
+
+reader.readAsDataURL(file);
+
+}
+);
+
+}
+
+async function blobBytes(blob){
+
+return new Uint8Array(
+await blob.arrayBuffer()
+);
+
+}
+
+/* =========================================================
+PDF
+========================================================= */
+
+function buildSimplePdf(images){
+
+let pdf=
+"%PDF-1.4\n";
+
+let objects=[];
+let positions=[];
+
+function add(content){
+
+const id=
+objects.length+1;
+
+positions[id]=
+pdf.length;
+
+pdf+=
+id+
+" 0 obj\n"+
+content+
+"\nendobj\n";
+
+objects.push(id);
+
+return id;
+
+}
+
+const pageIds=[];
+
+images.forEach(
+(img,i)=>{
+
+const jpeg=
+new TextDecoder(
+"latin1"
+).decode(img.data);
+
+const imageId=
+add(
+"<< /Type /XObject"+
+" /Subtype /Image"+
+" /Width "+img.width+
+" /Height "+img.height+
+" /ColorSpace /DeviceRGB"+
+" /BitsPerComponent 8"+
+" /Filter /DCTDecode"+
+" /Length "+img.data.length+
+" >>\nstream\n"+
+jpeg+
+"\nendstream"
+);
+
+const stream=
+"q\n"+
+"500 0 0 700 47 71 cm\n"+
+"/Im"+i+
+" Do\nQ";
+
+const contentId=
+add(
+"<< /Length "+
+stream.length+
+" >>\nstream\n"+
+stream+
+"\nendstream"
+);
+
+const pageId=
+add(
+"<< /Type /Page"+
+" /Parent PAGES 0 R"+
+" /MediaBox [0 0 595 842]"+
+" /Resources << /XObject << /Im"+
+i+" "+imageId+
+" 0 R >> >>"+
+" /Contents "+
+contentId+
+" 0 R >>"
+);
+
+pageIds.push(pageId);
+
+}
+);
+
+const pagesId=
+objects.length+1;
+
+positions[pagesId]=
+pdf.length;
+
+pdf+=
+pagesId+
+" 0 obj\n"+
+"<< /Type /Pages"+
+" /Kids ["+
+pageIds.map(
+x=>x+" 0 R"
+).join(" ")+
+"] /Count "+
+pageIds.length+
+" >>\n"+
+"endobj\n";
+
+const catalogId=
+objects.length+2;
+
+positions[catalogId]=
+pdf.length;
+
+pdf=
+pdf.replace(
+//Parent PAGES 0 R/g,
+"/Parent "+pagesId+" 0 R"
+);
+
+pdf+=
+catalogId+
+" 0 obj\n"+
+"<< /Type /Catalog"+
+" /Pages "+
+pagesId+
+" 0 R >>\n"+
+"endobj\n";
+
+const xref=
+pdf.length;
+
+pdf+=
+"xref\n"+
+"0 "+
+(catalogId+1)+
+"\n";
+
+pdf+=
+"0000000000 65535 f \n";
+
+for(
+let i=1;
+i<=catalogId;
+i++
+){
+
+const pos=
+pdf.indexOf(
+i+" 0 obj"
+);
+
+pdf+=
+String(pos)
+.padStart(10,"0")+
+" 00000 n \n";
+
+}
+
+pdf+=
+"trailer\n"+
+"<< /Size "+
+(catalogId+1)+
+" /Root "+
+catalogId+
+" 0 R >>\n"+
+"startxref\n"+
+xref+
+"\n%%EOF";
+
+return new TextEncoder()
+.encode(pdf);
+
+}
+
+async function makePDF(){
+
+if(!selectedImages.length){
+
+toast(
+"⚠️ حداقل یک تصویر انتخاب کن"
+);
+
+return;
+
+}
+
+toast(
+"⏳ در حال ساخت PDF..."
+);
+
+try{
+
+const data=[];
+
+for(
+const file of selectedImages
+){
+
+const blob=
+await imageToJpeg(file);
+
+const bytes=
+await blobBytes(blob);
+
+const img=
+await getImageSize(file);
+
+data.push({
+data:bytes,
+width:img.width,
+height:img.height
+});
+
+}
+
+const pdfBytes=
+buildSimplePdf(data);
+
+const blob=
+new Blob(
+[pdfBytes],
+{type:"application/pdf"}
+);
+
+downloadBlob(
+blob,
+"kafenet-man.pdf"
+);
+
+toast(
+"✅ PDF ساخته شد"
+);
+
+}catch(e){
+
+console.error(e);
+
+toast(
+"❌ ساخت PDF انجام نشد"
+);
+
+}
+
+}
+
+/* =========================================================
+DOWNLOAD
+========================================================= */
+
+function downloadBlob(blob,name){
+
+const url=
+URL.createObjectURL(blob);
+
+const a=
+document.createElement("a");
+
+a.href=url;
+
+a.download=name;
+
+document.body.appendChild(a);
+
+a.click();
+
+a.remove();
+
+setTimeout(
+()=>{
+URL.revokeObjectURL(url);
+},
+1000
+);
+
+}
+
+/* =========================================================
+REQUEST PDF
+========================================================= */
+
+async function makeRequestPDF(){
+
+const title=
+document.getElementById(
+"requestTitle"
+).value.trim();
+
+const text=
+document.getElementById(
+"requestText"
+).value.trim();
+
+if(!title || !text){
+
+toast(
+"⚠️ عنوان و متن درخواست را وارد کن"
+);
+
+return;
+
+}
+
+try{
+
+const canvas=
+document.createElement("canvas");
+
+canvas.width=1240;
+canvas.height=1754;
+
+const ctx=
+canvas.getContext("2d");
+
+ctx.fillStyle="#fff";
+
+ctx.fillRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+ctx.fillStyle="#111";
+
+ctx.direction="rtl";
+
+ctx.textAlign="right";
+
+ctx.font=
+"bold 42px Tahoma";
+
+ctx.fillText(
+title,
+1120,
+150
+);
+
+ctx.font=
+"26px Tahoma";
+
+const lines=
+wrapText(
+ctx,
+text,
+1020
+);
+
+let y=240;
+
+lines.forEach(
+line=>{
+
+if(y>1600)    
+ return;    
+
+
+ctx.fillText(    
+ line,    
+ 1120,    
+ y    
+);    
+
+
+y+=55;
+
+}
+);
+
+ctx.font=
+"20px Tahoma";
+
+ctx.fillStyle="#777";
+
+ctx.fillText(
+"تهیه شده با کافی‌نت من",
+1120,
+1680
+);
+
+canvas.toBlob(
+async blob=>{
+
+if(!blob)    
+ return;    
+
+
+const pdfBlob=    
+ await imageBlobToPdf(blob);    
+
+
+downloadBlob(    
+ pdfBlob,    
+ "darkhast-kafenet-man.pdf"    
+);    
+
+
+toast(    
+ "✅ فایل درخواست آماده شد"    
+);
+
+},
+"image/jpeg",
+.9
+);
+
+}catch(e){
+
+console.error(e);
+
+toast(
+"❌ ساخت فایل انجام نشد"
+);
+
+}
+
+}
+
+function wrapText(ctx,text,maxWidth){
+
+const words=
+text.split(/\s+/);
+
+const lines=[];
+
+let line="";
+
+words.forEach(
+word=>{
+
+const test=
+line?
+line+" "+word:
+word;
+
+if(
+ctx.measureText(test).width>
+maxWidth
+){
+
+if(line)    
+ lines.push(line);    
+
+
+line=word;
+
+}else{
+
+line=test;
+
+}
+
+}
+);
+
+if(line)
+lines.push(line);
+
+return lines;
+
+}
+
+/* =========================================================
+REQUEST IMAGE -> PDF
+========================================================= */
+
+async function imageBlobToPdf(blob){
+
+const bytes=
+new Uint8Array(
+await blob.arrayBuffer()
+);
+
+const jpeg=
+new TextDecoder(
+"latin1"
+).decode(bytes);
+
+const positions=[];
+
+let pdf=
+"%PDF-1.4\n";
+
+const objects=[];
+
+function add(content){
+
+const id=
+objects.length+1;
+
+positions[id]=
+pdf.length;
+
+pdf+=
+id+
+" 0 obj\n"+
+content+
+"\nendobj\n";
+
+objects.push(id);
+
+return id;
+
+}
+
+const imageId=
+add(
+"<< /Type /XObject"+
+" /Subtype /Image"+
+" /Width 1240"+
+" /Height 1754"+
+" /ColorSpace /DeviceRGB"+
+" /BitsPerComponent 8"+
+" /Filter /DCTDecode"+
+" /Length "+bytes.length+
+" >>\nstream\n"+
+jpeg+
+"\nendstream"
+);
+
+const stream=
+"q\n"+
+"595 0 0 842 0 0 cm\n"+
+"/Im0 Do\n"+
+"Q";
+
+const contentId=
+add(
+"<< /Length "+
+stream.length+
+" >>\nstream\n"+
+stream+
+"\nendstream"
+);
+
+const pagesId=
+objects.length+1;
+
+const pageId=
+pagesId+1;
+
+const catalogId=
+pagesId+2;
+
+positions[pagesId]=
+pdf.length;
+
+pdf+=
+pagesId+
+" 0 obj\n"+
+"<< /Type /Pages"+
+" /Kids ["+
+pageId+
+" 0 R]"+
+" /Count 1 >>\n"+
+"endobj\n";
+
+positions[pageId]=
+pdf.length;
+
+pdf+=
+pageId+
+" 0 obj\n"+
+"<< /Type /Page"+
+" /Parent "+
+pagesId+
+" 0 R"+
+" /MediaBox [0 0 595 842]"+
+" /Resources << /XObject << /Im0 "+
+imageId+
+" 0 R >> >>"+
+" /Contents "+
+contentId+
+" 0 R >>\n"+
+"endobj\n";
+
+positions[catalogId]=
+pdf.length;
+
+pdf+=
+catalogId+
+" 0 obj\n"+
+"<< /Type /Catalog"+
+" /Pages "+
+pagesId+
+" 0 R >>\n"+
+"endobj\n";
+
+const xref=
+pdf.length;
+
+pdf+=
+"xref\n0 "+
+(catalogId+1)+
+"\n";
+
+pdf+=
+"0000000000 65535 f \n";
+
+for(
+let i=1;
+i<=catalogId;
+i++
+){
+
+pdf+=
+String(positions[i])
+.padStart(10,"0")+
+" 00000 n \n";
+
+}
+
+pdf+=
+"trailer\n"+
+"<< /Size "+
+(catalogId+1)+
+" /Root "+
+catalogId+
+" 0 R >>\n"+
+"startxref\n"+
+xref+
+"\n%%EOF";
+
+return new Blob(
+[new TextEncoder().encode(pdf)],
+{type:"application/pdf"}
+);
+
+}
+
+/* =========================================================
+تاریخ و ساعت شمسی
+========================================================= */
+
+function updateDateTime(){
+
+const now=
+new Date();
+
+const dateText=
+now.toLocaleDateString(
+"fa-IR",
+{
+weekday:"long",
+year:"numeric",
+month:"long",
+day:"numeric"
+}
+);
+
+const timeText=
+now.toLocaleTimeString(
+"fa-IR",
+{
+hour:"2-digit",
+minute:"2-digit",
+second:"2-digit"
+}
+);
+
+document.getElementById(
+"persianDate"
+).textContent=dateText;
+
+document.getElementById(
+"clock"
+).textContent=timeText;
+
+}
+
+setInterval(
+updateDateTime,
+1000
+);
+
+updateDateTime();
+
+/* =========================================================
+TOAST
+========================================================= */
+
+let toastTimer;
+
+function toast(text){
+
+const el=
+document.getElementById(
+"toast"
+);
+
+el.textContent=text;
+
+el.classList.add("show");
+
+clearTimeout(
+toastTimer
+);
+
+toastTimer=
+setTimeout(
+()=>{
+el.classList.remove("show");
+},
+2200
+);
+
+}
+
+/* =========================================================
+START
+========================================================= */
+
+(async function(){
+
+const ok=
+await checkSubscription();
+
+if(ok){
+
+show("home");
+renderServices();
+
+}else{
+
+show("welcome");
+
+}
+
+})();
+
+</script>  </body>
+
+</html>
